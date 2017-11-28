@@ -1,6 +1,7 @@
 <template>
   <div class="row">
-    <app-quote v-for="quote in quotesOk"> {{quote}}</app-quote>
+    <!--dokolku sakame da poslusame event na root component-ot mora da koristeme native-->
+    <app-quote v-for="(quote, index) in quotesOk" @click.native="deleteQuote(index)"> {{quote}}</app-quote>
   </div>
 </template>
 
@@ -15,7 +16,19 @@
     components: {
       appQuote: Quote
 
+    },
+
+    methods: {
+
+      deleteQuote(index) {
+
+       // this.quotesOk.splice(index,1);
+          //emitirame event do parent component-ot(go emitirame index-ot)
+        this.$emit('quoteDeleted',index);
+      }
     }
+
+
 
   }
 

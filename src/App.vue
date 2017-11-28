@@ -1,8 +1,13 @@
 <template>
   <div class="container">
-    go prifacame emitiraniot event od child component-ot NewQuote i ja egzekutirame newQuote f-jata kako rezultat na prifacanjeto od cild-ot
+    <!--go prifacame emitiraniot event od child component-ot NewQuote i ja egzekutirame newQuote f-jata kako rezultat na prifacanjeto od cild-ot-->
     <app-new-quote @quoteAdded="newQuote"> </app-new-quote>
-   <app-quote-grid :quotesOk="quotes"></app-quote-grid>
+    <!--go prifacame emitiraniot event od child component-ot i regirame na nego vo f-ja-->
+   <app-quote-grid :quotesOk="quotes" @quoteDeleted="quoteDeleted"></app-quote-grid>
+
+    <div class="col-sm-12 text-center">
+      <div class="alert alert-info">Info:Click on a quote to delete it!</div>
+    </div>
   </div>
 </template>
 
@@ -29,8 +34,12 @@
       //so ovaa f-ja go dodavame noviot quote
       newQuote(quote){
         if(quote !== '') {
-          this.quotes.unshift(quote.trim());
+          this.quotes.push(quote.trim());
         }
+      },
+      //index-ot od child component-ot avtomatski e vo argumentot
+      quoteDeleted(index) {
+        this.quotes.splice(index,1);
       }
     }
 
